@@ -17,6 +17,9 @@ describe('Petstore Swagger', () => {
                 assert.equal(res.statusCode, 200);
                 assert.equal(res.body.id, petID);
                 assert.equal(res.body.name, "Dog")
+                assert.equal(res.body.photoUrls[0], "string");
+                assert.equal(res.body.category.id, 0);
+                assert.equal(res.body.tags[0].name, "string")
             });
     });
 

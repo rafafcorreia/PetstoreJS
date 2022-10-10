@@ -4,7 +4,7 @@ const supertest = require('supertest');
 
 const petID = 123129;
 
-describe('Petstore Swagger', () => {
+describe('Petstore Swagger - Pet', () => {
 
     const request = supertest('https://petstore.swagger.io/v2');
 

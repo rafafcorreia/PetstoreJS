@@ -53,6 +53,22 @@ describe('Petstore Swagger - User', () => {
             })
     })
 
+    it('GET User Login', () => {
+        
+        return request
+            .get('/user/login?username=dsadusahdasdaso&password=12345')
+            .then((res) => {
+                assert.equal(res.statusCode, 200);
+                assert.equal(res.body.code, 200);
+                assert.equal(res.body.type, "unknown");
+
+                // token = res.body.message.substring(23);
+                token = res.body.message.split(':')[1];
+                console.log(res.body);
+                console.log(`Token extraido: ${token}`);
+            })
+    })
+
     it('DELETE User', () => {
 
         return request

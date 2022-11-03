@@ -1,10 +1,10 @@
 {
-  "id": 123129,
+  "id": 0,
   "category": {
     "id": 0,
     "name": "string"
   },
-  "name": "Dog",
+  "name": "",
   "photoUrls": [
     "string"
   ],

@@ -1,5 +1,3 @@
-const assert = require('chai').assert;
-
 const supertest = require('supertest');
 
 const petID = 123129;
@@ -8,7 +6,6 @@ describe('Petstore Swagger - Pet', () => {
 
     const request = supertest('https://petstore.swagger.io/v2');
     const massa = require('../../vendors/json/massaPet')
-    // const pet = require('../../vendors/json/pet.json');
     
     it('POST Pet', () => {
         const pet = require('../../vendors/json/pet.json');
@@ -16,9 +13,9 @@ describe('Petstore Swagger - Pet', () => {
             .post('/pet')
             .send(pet)
             .then((res) => {
-                assert.equal(res.statusCode, 200);
-                assert.equal(res.body.id, petID);
-                assert.equal(res.body.name, "Athena");
+                expect(res.statusCode).toBe(200);
+                expect(res.body.id).toBe(petID);
+                expect(res.body.name).toBe("Athena");
             })
     })
 
@@ -26,8 +23,8 @@ describe('Petstore Swagger - Pet', () => {
         return request
             .get('/pet/' + petID)
             .then((res) => {
-                assert.equal(res.statusCode, 200);
-                assert.equal(res.body.id, petID);
+                expect(res.statusCode).toBe(200);
+                expect(res.body.id).toBe(petID);
             })
     })
 
@@ -37,9 +34,9 @@ describe('Petstore Swagger - Pet', () => {
             .put('/pet')
             .send(petNovo)
             .then((res) => {
-                assert.equal(res.statusCode, 200);
-                assert.equal(res.body.id, petID);
-                assert.equal(res.body.name, "Hera");
+                expect(res.statusCode).toBe(200);
+                expect(res.body.id).toBe(petID);
+                expect(res.body.name).toBe("Hera");
             })
     })
 
@@ -48,7 +45,7 @@ describe('Petstore Swagger - Pet', () => {
         return request
             .delete('/pet/' + petID)
             .then((res) => {
-                assert.equal(res.statusCode, 200);
+                expect(res.statusCode).toBe(200);
             })
     })
 
@@ -65,7 +62,8 @@ describe('Petstore Swagger - Pet', () => {
             pet.category.name = nomeCategoria */
     massa.array.forEach(({ nomePet, idPet, nomeCategoria, idCategoria }) => {
 
-        it.skip(`POST Pet - ${nomePet}`, () => {
+        it(`POST Pet - ${nomePet}`, () => {
+            const pet = require('../../vendors/json/pet.json');
 
             pet.id = idPet
             pet.name = nomePet
@@ -76,28 +74,28 @@ describe('Petstore Swagger - Pet', () => {
                 .post('/pet')
                 .send(pet) // send payload data
                 .then((res) => {
-                    assert.equal(res.statusCode, 200);
-                    assert.equal(res.body.id, idPet);
-                    assert.equal(res.body.name, nomePet)
-                    assert.equal(res.body.category.id, idCategoria);
-                    assert.equal(res.body.category.name, nomeCategoria)
+                    expect(res.statusCode).toBe(200);
+                    expect(res.body.id).toBe(idPet);
+                    expect(res.body.name).toBe(nomePet)
+                    expect(res.body.category.id).toBe(idCategoria);
+                    expect(res.body.category.name).toBe(nomeCategoria);
                 });
         })
 
-        it.skip(`GET Pet - ${nomePet}`, () => {
+        it(`GET Pet - ${nomePet}`, () => {
             return request
                 .get('/pet/' + idPet)
                 .then((res) => {
-                    assert.equal(res.statusCode, 200);
-                    assert.equal(res.body.id, idPet);
+                    expect(res.statusCode).toBe(200);
+                    expect(res.body.id).toBe(idPet);
                 })
         })
 
-        it.skip(`DELETE Pet - ${nomePet}`, () => {
+        it(`DELETE Pet - ${nomePet}`, () => {
             return request
                 .delete('/pet/' + idPet)
                 .then((res) => {
-                    assert.equal(res.statusCode, 200);
+                    expect(res.statusCode).toBe(200);
                 })
         })
 

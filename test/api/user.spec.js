@@ -1,5 +1,3 @@
-const assert = require('chai').assert;
-
 const supertest = require('supertest');
 
 let token;
@@ -18,9 +16,9 @@ describe('Petstore Swagger - User', () => {
             .post('/user')
             .send(user)
             .then((res) => {
-                assert.equal(res.statusCode, 200);
-                assert.equal(res.body.code, 200);
-                assert.equal(res.body.type, "unknown");
+                expect(res.statusCode).toBe(200);
+                expect(res.body.code).toBe(200);
+                expect(res.body.type).toBe("unknown");
                 token = res.body.message;
                 console.log(token);
             })
@@ -30,11 +28,11 @@ describe('Petstore Swagger - User', () => {
         return request
             .get(`/user/${username}`)
             .then((res) => {
-                assert.equal(res.statusCode, 200);
-                assert.equal(res.body.id, 789123);
-                assert.equal(res.body.username, username);
-                assert.equal(res.body.firstName, "Fulano");
-                assert.equal(res.body.lastName, "Ciclano");
+                expect(res.statusCode).toBe(200);
+                expect(res.body.id).toBe(789123);
+                expect(res.body.username).toBe(username);
+                expect(res.body.firstName).toBe("Fulano");
+                expect(res.body.lastName).toBe("Ciclano");
             })
     })
 
@@ -46,10 +44,10 @@ describe('Petstore Swagger - User', () => {
             .put(`/user/${username}`)
             .send(user)
             .then((res) => {
-                assert.equal(res.statusCode, 200);
-                assert.equal(res.body.code, 200);
-                assert.equal(res.body.type, "unknown");
-                assert.equal(res.body.message, 789123);
+                expect(res.statusCode).toBe(200);
+                expect(res.body.code).toBe(200);
+                expect(res.body.type).toBe("unknown");
+                expect(res.body.message).toBe("789123");
             })
     })
 
@@ -58,9 +56,9 @@ describe('Petstore Swagger - User', () => {
         return request
             .get('/user/login?username=dsadusahdasdaso&password=12345')
             .then((res) => {
-                assert.equal(res.statusCode, 200);
-                assert.equal(res.body.code, 200);
-                assert.equal(res.body.type, "unknown");
+                expect(res.statusCode).toBe(200);
+                expect(res.body.code).toBe(200);
+                expect(res.body.type).toBe("unknown");
 
                 // token = res.body.message.substring(23);
                 token = res.body.message.split(':')[1];
@@ -74,10 +72,10 @@ describe('Petstore Swagger - User', () => {
         return request
             .delete(`/user/${usernameNovo}`)
             .then((res) => {
-                assert.equal(res.statusCode, 200);
-                assert.equal(res.body.code, 200);
-                assert.equal(res.body.type, "unknown");
-                assert.equal(res.body.message, usernameNovo);
+                expect(res.statusCode).toBe(200);
+                expect(res.body.code).toBe(200);
+                expect(res.body.type).toBe("unknown");
+                expect(res.body.message).toBe(usernameNovo);
             })
     })
 });

@@ -2,7 +2,7 @@
 
 ## Instruções
 
-1. Instalar as bibliotecas: `npm install supertest jest chai --save-dev`
+1. Instalar as bibliotecas: `npm install supertest jest --save-dev`
 
 2. Certifique-se que o seguinte bloco de código está no seu package.json:
 `

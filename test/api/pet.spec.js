@@ -6,7 +6,7 @@ describe('Petstore Swagger - Pet', () => {
 
     const request = supertest('https://petstore.swagger.io/v2');
     const massa = require('../../vendors/json/massaPet')
-    
+
     it('POST Pet', () => {
         const pet = require('../../vendors/json/pet.json');
         return request
@@ -49,17 +49,32 @@ describe('Petstore Swagger - Pet', () => {
             })
     })
 
-    /*it.only.each(massa.array.map(elemento => [
+    it.only.each(massa.array.map(elemento => [
         elemento.nomePet,
         elemento.idPet,
         elemento.nomeCategoria,
         elemento.idCategoria]))
         ('POST Pet %s', (nomePet, idPet, nomeCategoria, idCategoria) => {
 
+            const pet = require('../../vendors/json/pet.json');
             pet.id = idPet
             pet.name = nomePet
             pet.category.id = idCategoria
-            pet.category.name = nomeCategoria */
+            pet.category.name = nomeCategoria
+
+            return request
+                .post('/pet')
+                .send(pet) // send payload data
+                .then((res) => {
+                    expect(res.statusCode).toBe(200);
+                    expect(res.body.id).toBe(idPet);
+                    expect(res.body.name).toBe(nomePet)
+                    expect(res.body.category.id).toBe(idCategoria);
+                    expect(res.body.category.name).toBe(nomeCategoria);
+                });
+
+        })
+
     massa.array.forEach(({ nomePet, idPet, nomeCategoria, idCategoria }) => {
 
         it(`POST Pet - ${nomePet}`, () => {

@@ -8,7 +8,49 @@ describe('Petstore Swagger - Pet', () => {
 
     const request = supertest('https://petstore.swagger.io/v2');
     const massa = require('../../vendors/json/massaPet')
-    const pet = require('../../vendors/json/pet.json');
+    // const pet = require('../../vendors/json/pet.json');
+    
+    it('POST Pet', () => {
+        const pet = require('../../vendors/json/pet.json');
+        return request
+            .post('/pet')
+            .send(pet)
+            .then((res) => {
+                assert.equal(res.statusCode, 200);
+                assert.equal(res.body.id, petID);
+                assert.equal(res.body.name, "Athena");
+            })
+    })
+
+    it('GET Pet', () => {
+        return request
+            .get('/pet/' + petID)
+            .then((res) => {
+                assert.equal(res.statusCode, 200);
+                assert.equal(res.body.id, petID);
+            })
+    })
+
+    it('PUT Pet', () => {
+        const petNovo = require('../../vendors/json/petNovo.json');
+        return request
+            .put('/pet')
+            .send(petNovo)
+            .then((res) => {
+                assert.equal(res.statusCode, 200);
+                assert.equal(res.body.id, petID);
+                assert.equal(res.body.name, "Hera");
+            })
+    })
+
+
+    it('DELETE Pet', () => {
+        return request
+            .delete('/pet/' + petID)
+            .then((res) => {
+                assert.equal(res.statusCode, 200);
+            })
+    })
 
     /*it.only.each(massa.array.map(elemento => [
         elemento.nomePet,
@@ -23,7 +65,7 @@ describe('Petstore Swagger - Pet', () => {
             pet.category.name = nomeCategoria */
     massa.array.forEach(({ nomePet, idPet, nomeCategoria, idCategoria }) => {
 
-        it(`POST Pet - ${nomePet}`, () => {
+        it.skip(`POST Pet - ${nomePet}`, () => {
 
             pet.id = idPet
             pet.name = nomePet
@@ -42,7 +84,7 @@ describe('Petstore Swagger - Pet', () => {
                 });
         })
 
-        it(`GET Pet - ${nomePet}`, () => {
+        it.skip(`GET Pet - ${nomePet}`, () => {
             return request
                 .get('/pet/' + idPet)
                 .then((res) => {
@@ -51,7 +93,7 @@ describe('Petstore Swagger - Pet', () => {
                 })
         })
 
-        it(`DELETE Pet - ${nomePet}`, () => {
+        it.skip(`DELETE Pet - ${nomePet}`, () => {
             return request
                 .delete('/pet/' + idPet)
                 .then((res) => {
@@ -60,19 +102,5 @@ describe('Petstore Swagger - Pet', () => {
         })
 
     });
-
-
-
-    it.skip('PUT Pet', () => {
-        const petNovo = require('../../vendors/petNovo.json');
-        return request
-            .put('/pet')
-            .send(petNovo)
-            .then((res) => {
-                assert.equal(res.statusCode, 200);
-                assert.equal(res.body.id, petID);
-                assert.equal(res.body.name, "Athena");
-            })
-    })
 
 });

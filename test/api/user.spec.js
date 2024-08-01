@@ -11,7 +11,7 @@ describe('Petstore Swagger - User', () => {
     const request = supertest('https://petstore.swagger.io/v2');
 
     it('POST User', () => {
-        const user = require('../../vendors/user.json');
+        const user = require('../../vendors/json/user.json');
         username = user.username;
 
         return request
@@ -39,7 +39,7 @@ describe('Petstore Swagger - User', () => {
     })
 
     it('PUT User', () => {
-        const user = require('../../vendors/userNovo.json');
+        const user = require('../../vendors/json/userNovo.json');
         usernameNovo = user.username;
 
         return request
